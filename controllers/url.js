@@ -10,7 +10,10 @@ async function GenerateNEwShortURL(req,res){
         redirectURL:body.url,
         clickHistory:[],
     })
-    res.json({generatedId:id})
+    res.render('home',
+        {ID:id}
+    )
+    //res.json({generatedId:id})
 }
 
 async function RedirectSite(req,res){

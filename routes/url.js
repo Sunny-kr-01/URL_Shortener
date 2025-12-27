@@ -1,5 +1,5 @@
 const express=require('express');
-const {GenerateNEwShortURL,RedirectSite}=require('../controllers/url')
+const {GenerateNEwShortURL,RedirectSite,showStats}=require('../controllers/url')
 
 const router =express.Router();
 
@@ -13,6 +13,8 @@ router.route('/')
 
 router.route('/:id')
 .get(RedirectSite)
+
+router.get('/analytics/:id',showStats)
 
 
 

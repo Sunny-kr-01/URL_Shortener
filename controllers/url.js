@@ -28,7 +28,14 @@ async function RedirectSite(req,res){
     res.redirect(location.redirectURL)
 }
 
+async function showStats(req,res){
+    const shortID=req.params.id;
+    const stats=await URL.findOne({shortID})
+    res.json({clicks : stats.clickHistory.length})
+}
+
 module.exports={
     GenerateNEwShortURL,
-    RedirectSite
+    RedirectSite,
+    showStats
 }

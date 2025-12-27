@@ -11,13 +11,11 @@ const urlSchema=new mongoose.Schema({
         type:String,
         required:true,
     },
-    clickHistory:{
-        time:[{timstamp:{ type:number }}]
-    },
+    clickHistory:[{timestamp:{ type:Number }}],
 },
 {timestamps:true}
 )
 
-const URL=mongoose.model('url',urlSchema);
+const URL=mongoose.model('urls',urlSchema);
 
 module.exports = URL;

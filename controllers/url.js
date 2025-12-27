@@ -2,7 +2,7 @@ const URL=require('../models/url')
 const {nanoid}=require('nanoid');
 
 async function GenerateNEwShortURL(req,res){
-    const bosy=req.body;
+    const body=req.body;
     const id=nanoid(8);
     if(!body.url) return res.status(400).json({error : "require url"})
     await URL.create({
@@ -13,6 +13,22 @@ async function GenerateNEwShortURL(req,res){
     res.json({generatedId:id})
 }
 
+async function RedirectSite(req,res){
+    const id=req.params.id
+    const location= await URL.findOneAndUpdate(
+        {
+            shortID:id
+        },
+        {
+            $push : {
+                clickHistory :{timestamp:Date.now()}
+            }
+        }
+    )
+    res.redirect(location.redirectURL)
+}
+
 module.exports={
-    GenerateNEwShortURL
+    GenerateNEwShortURL,
+    RedirectSite
 }

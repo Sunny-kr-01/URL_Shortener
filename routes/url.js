@@ -1,12 +1,19 @@
 const express=require('express');
-const {GenerateNEwShortURL}=require('../controllers/url')
+const {GenerateNEwShortURL,RedirectSite}=require('../controllers/url')
 
 const router =express.Router();
 
 router.route('/')
-.get(()=>{
-
+.get((req,res)=>{
+    res.send(`
+        <h1>URL Shortner</h1>
+        `)
 })
-.post('/',GenerateNEwShortURL)
+.post(GenerateNEwShortURL)
+
+router.route('/:id')
+.get(RedirectSite)
+
+
 
 module.exports=router;

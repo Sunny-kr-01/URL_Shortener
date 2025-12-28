@@ -1,10 +1,11 @@
+const {v4:uuidv4}=require('uuid')
 const User =require('../models/user')
-
+const {setUser}=require('../servise/auth')
 async function UserSignUp(req,res){
     const {name,email,password}=req.body
     await User.create({
         name,
-        email,
+        email,            
         password
     })
     return res.redirect('/')
@@ -12,9 +13,12 @@ async function UserSignUp(req,res){
 async function UserLogin(req,res){
     const {email,password}=req.body
     const user=await User.findOne({email,password})
-    if(!user) return res.render('login',  // if not return : does'nt hamdle error
+    if(!user) return res.render('login',  
         {error:"Invalid Username or Password"}
-    )
+    )  // if not return : does'nt handle error
+    const sessionID=uuidv4();
+    setUser(sessionID,user);
+    res.cookie('uid',sessionID)
     return res.redirect('/')
 }
 

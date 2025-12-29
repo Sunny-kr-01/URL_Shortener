@@ -2,7 +2,7 @@ const express =require ('express')
 const path=require('path')
 const cookieParser =require('cookie-parser')
 const {connectMongoose}=require('./connect')
-const {restrictToLoggedInUserOnly}=require('./middlewares/auth')
+const {restrictToLoggedInUserOnly,checkAuth}=require('./middlewares/auth')
 const app= express()
 const PORT= 67
 
@@ -26,7 +26,7 @@ connectMongoose('mongodb://127.0.0.1:27017/Short_URLs')
 .catch((err)=>{console.log("Mongo Error")})
 
 app.use('/url',restrictToLoggedInUserOnly,urlRouter)
-app.use('/',statisRoute)
+app.use('/',checkAuth,statisRoute)
 app.use('/user',userRoute)
 app.listen(PORT,()=>{
     console.log(`App is listening on PORT ${PORT}`)

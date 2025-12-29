@@ -9,6 +9,7 @@ async function GenerateNEwShortURL(req,res){
         shortID:id,
         redirectURL:body.url,
         clickHistory:[],
+        createdby:req.user._id
     })
     res.render('home',
         {ID:id}
@@ -17,10 +18,10 @@ async function GenerateNEwShortURL(req,res){
 }
 
 async function RedirectSite(req,res){
-    const id=req.params.id
+    const shortID=req.params.id
     const location= await URL.findOneAndUpdate(
         {
-            shortID:id
+            shortID
         },
         {
             $push : {
@@ -28,7 +29,7 @@ async function RedirectSite(req,res){
             }
         }
     )
-    res.redirect(location.redirectURL)
+    return res.redirect(location.redirectURL)
 }
 
 async function showStats(req,res){

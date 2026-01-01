@@ -18,10 +18,10 @@ async function UserLogin(req,res){
     )  // if not return : does'nt handle error
     
     const token=setUser(user);
-    res.cookie('uid',token,{
-        domain:'.localhost:67'  // cookies valid on every port on localhost:67/example/ex1/ex2
-    })
-    return res.redirect('/')
+    // res.cookie('uid',token,{
+    //     domain:'.localhost:67'  // cookies valid on every port on localhost:67/example/ex1/ex2
+    // })
+    return res.json({token})
 }
 
 module.exports={

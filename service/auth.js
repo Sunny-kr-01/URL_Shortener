@@ -4,7 +4,8 @@ const secret= 'Thunder@0101$*'
 function setUser(user){
     const payload ={
         id:user._id,
-        email:user.email
+        email:user.email,
+        role:user.role
     }
     return jwt.sign(payload,secret)
 }

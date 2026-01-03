@@ -10,6 +10,10 @@ const urlRouter=require('./routes/url')
 const statisRoute=require('./routes/staticRouter')
 const userRoute=require('./routes/user')
 
+connectMongoose('mongodb://127.0.0.1:27017/Short_URLs')
+.then(()=>{console.log("MongoDB connected")})
+.catch((err)=>{console.log("Mongo Error")})
+
 app.use(cookieParser())
 app.use(checkForAuthentication);
 
@@ -22,11 +26,8 @@ app.set ('view engine','ejs')
 //aslo give the ejs file location
 app.set('views',path.resolve('./views'))
 
-connectMongoose('mongodb://127.0.0.1:27017/Short_URLs')
-.then(()=>{console.log("MongoDB connected")})
-.catch((err)=>{console.log("Mongo Error")})
 
-app.use('/url',restrictTo("NORMAL"),urlRouter)
+app.use('/url',restrictTo(["NORMAL"]),urlRouter)
 app.use('/',statisRoute)
 app.use('/user',userRoute)
 

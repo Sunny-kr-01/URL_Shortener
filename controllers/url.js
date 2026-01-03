@@ -1,7 +1,11 @@
 const URL=require('../models/url')
 const {nanoid}=require('nanoid');
+const mongoose=require('mongoose')
 
 async function GenerateNEwShortURL(req,res){
+    if (!req.user) {
+    return res.status(401).send("Login required");
+  }
     const body=req.body;
     const id=nanoid(8);
     if(!body.url) return res.status(400).json({error : "require url"})
@@ -9,8 +13,9 @@ async function GenerateNEwShortURL(req,res){
         shortID:id,
         redirectURL:body.url,
         clickHistory:[],
-        createdby:req.user._id
+        createdby:new mongoose.Types.ObjectId(req.user.id)
     })
+    
     res.render('home',
         {ID:id}
     )

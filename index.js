@@ -27,7 +27,7 @@ app.set ('view engine','ejs')
 app.set('views',path.resolve('./views'))
 
 
-app.use('/url',restrictTo(["NORMAL"]),urlRouter)
+app.use('/url',restrictTo(["NORMAL","ADMIN"]),urlRouter)
 app.use('/',statisRoute)
 app.use('/user',userRoute)
 

@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title><%= typeof pageTitle !== 'undefined' ? pageTitle : 'URL Shortener' %></title>
+    <link rel="stylesheet" href="/css/style.css">
+  </head>
+  <body>
+    <div class="container">
+      <div class="brand">
+        <div class="logo">US</div>
+        <div>
+          <div class="title">URL Shortener</div>
+          <div class="muted">Shorten links — track clicks</div>
+        </div>
+      </div>
+      <div style="float:right; margin-top:6px">
+        <% if (user) { %>
+          <a href="/" class="muted" style="margin-right:12px">My URLs</a>
+        <% } else { %>
+          <a href="/login" class="muted" style="margin-right:12px">Login</a>
+          <a href="/signup" class="muted">Signup</a>
+        <% } %>
+      </div>
+      <div class="panel">
